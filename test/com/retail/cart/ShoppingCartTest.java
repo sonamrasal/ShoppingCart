@@ -40,17 +40,17 @@ public class ShoppingCartTest {
 
 	@Test
 	public void discountSlabApplicableToItemsShoppedByRegularCustomer() {
-		regularCustomer().shopsFor(6500).thenBillIs(5850);
-		regularCustomer().shopsFor(10000).thenBillIs(9000);
-		regularCustomer().shopsFor(15000).thenBillIs(12000);
+		regularCustomer().shopsFor(6500).thenBillIs(6350);
+		regularCustomer().shopsFor(10000).thenBillIs(9500);
+		regularCustomer().shopsFor(15000).thenBillIs(13500);
 	}
 
 	@Test
 	public void discountSlabApplicableToItemsShoppedByPremiumCustomer() {
 		premiumCustomer().shopsFor(4000).thenBillIs(3600);
-		premiumCustomer().shopsFor(8000).thenBillIs(6800);
-		premiumCustomer().shopsFor(12000).thenBillIs(9600);
-		premiumCustomer().shopsFor(20000).thenBillIs(14000);
+		premiumCustomer().shopsFor(8000).thenBillIs(7000);
+		premiumCustomer().shopsFor(12000).thenBillIs(10200);
+		premiumCustomer().shopsFor(20000).thenBillIs(15800);
 	}
 
 	private ShoppingCartTest shoppingCartIsEmpty() {

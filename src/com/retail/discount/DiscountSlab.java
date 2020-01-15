@@ -1,46 +1,35 @@
 package com.retail.discount;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DiscountSlab {
 
-	private static final int NO_DISCOUNT = 0;
+	public static final double NO_UPPER_LIMIT = -1;
+	private final double lower;
+	private final double upper;
+	private final double value;
+	private DiscountSlab next;
 
-	public class PriceRange {
-		public static final double NO_UPPER_LIMIT = -1;
-		private double lower;
-		private double higher;
-		private double value;
-
-		public PriceRange(double lower, double higher, double value) {
-			this.lower = lower;
-			this.higher = higher;
-			this.value = value;
-		}
-
-		public boolean contains(double price) {
-			return lower <= price && (higher >= price || higher == NO_UPPER_LIMIT);
-		}
-
-		public double get() {
-			return value;
-		}
+	public DiscountSlab(double lower, double upper, double value, DiscountSlab next) {
+		this.lower = lower;
+		this.upper = upper;
+		this.value = value;
+		this.next = next;
 	}
 
-	private List<PriceRange> ranges = new ArrayList();
-
-	public void add(double lower, double higher, double value) {
-		ranges.add(new PriceRange(lower, higher, value));
+	public double difference() {
+		return upper == NO_UPPER_LIMIT ? Integer.MAX_VALUE - lower : upper - lower;
 	}
 
-	public double getDiscountPercentFor(double price) {
-		for (PriceRange range : ranges) {
-			if (range.contains(price)) {
-				return range.get();
-			}
-		}
-		return NO_DISCOUNT;
+	public DiscountSlab nextSlab() {
+		return next;
+	}
+
+	public double applyDiscount(double price) {
+		double applicableAmount = Math.min(price, difference());
+		return applicableAmount * (1 - (value / 100));
+	}
+
+	public void next(DiscountSlab next) {
+		this.next = next;
 	}
 
 }

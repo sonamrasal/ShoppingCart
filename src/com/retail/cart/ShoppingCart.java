@@ -13,8 +13,7 @@ public class ShoppingCart {
 	}
 
 	public double bill() {
-		double discountAmount = plan.applyDiscount(basePrice);
-		return basePrice - discountAmount;
+		return plan.applyDiscountTo(basePrice);
 	}
 
 }

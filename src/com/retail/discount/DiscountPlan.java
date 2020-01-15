@@ -2,10 +2,16 @@ package com.retail.discount;
 
 public abstract class DiscountPlan {
 
-	protected DiscountSlab slabs;
+	protected DiscountSlab baseSlab;
 
-	public double applyDiscount(double basePrice) {
-		return (slabs.getDiscountPercentFor(basePrice) * basePrice) / 100;
+	public double applyDiscountTo(double price) {
+		double discountedPrice = 0;
+		DiscountSlab slab = baseSlab;
+		while (price > 0) {
+			discountedPrice += slab.applyDiscount(price);
+			price = price - slab.difference();
+			slab = slab.nextSlab();
+		}
+		return discountedPrice;
 	}
-
 }
