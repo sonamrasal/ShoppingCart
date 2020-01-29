@@ -10,8 +10,22 @@ public abstract class DiscountPlan {
 		while (price > 0) {
 			discountedPrice += slab.applyDiscount(price);
 			price = price - slab.difference();
-			slab = slab.nextSlab();
+			slab = slab.next();
 		}
 		return discountedPrice;
+	}
+
+	public void addSlab(DiscountSlab slab) {
+		DiscountSlab current = baseSlab;
+		while (Boolean.TRUE) {
+			if (slab.isWithinRangeOf(current)) {
+				current.adjustWith(slab);
+				slab.next(current.next());
+				current.next(slab);
+				break;
+			} else {
+				current = current.next();
+			}
+		}
 	}
 }

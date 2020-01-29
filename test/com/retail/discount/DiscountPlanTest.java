@@ -34,5 +34,19 @@ public class DiscountPlanTest {
 		assertEquals(10200, plan.applyDiscountTo(12000), PRECISION);
 		assertEquals(15800, plan.applyDiscountTo(20000), PRECISION);
 	}
+	
+	@Test
+	public void addnewDiscountSlabToRegularPlan_newSlabSubsetOfExistingSlab() {
+		plan = new Regular();
+		plan.addSlab(new DiscountSlab(5000, 7000, 5, null));
+		assertEquals(5950, plan.applyDiscountTo(6000), PRECISION);
+	}
+	
+	@Test
+	public void addNewDiscountSlabToRegularPlan_newSlabEndFormsEndOfChain() {
+		plan = new Regular();
+		plan.addSlab(new DiscountSlab(10000, 12000, 15, null));
+		assertEquals(13600, plan.applyDiscountTo(15000), PRECISION);
+	}
 
 }

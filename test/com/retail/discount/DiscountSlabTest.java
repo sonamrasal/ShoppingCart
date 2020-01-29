@@ -25,10 +25,10 @@ public class DiscountSlabTest {
 	@Test
 	public void nextSlabInChainRequested() {
 		DiscountSlab slab = new DiscountSlab(100, 2000, 10, null);
-		assertNull(slab.nextSlab());
+		assertNull(slab.next());
 		DiscountSlab nextSlab = new DiscountSlab(2500, 3000, 15, null);
 		slab.next(nextSlab);
-		assertEquals(nextSlab, slab.nextSlab());
+		assertEquals(nextSlab, slab.next());
 	}
 
 	@Test
